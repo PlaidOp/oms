@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  .top-bar {
+    background-color: red;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+  .black-bar {
+    background-color: black;
+    color: white;
+    padding: 5px;
+  }
+  .owner-panel {
+    display: none;
+  }
+  .owner-actions {
+    display: none;
+  }
+</style>
+<title>OMS - Breaking News</title>
+</head>
+<body>
+  <div class="top-bar">
+    <div>OMS - BREAKING NEWS</div>
+    <div class="login-form">
+      <form action="https://accounts.google.com/login" method="POST">
+        <input type="email" placeholder="Email" name="email" required>
+        <input type="password" placeholder="Password" name="password" required>
+        <input type="submit" value="Login">
+      </form>
+    </div>
+  </div>
+  <div class="black-bar">
+    Welcome to the Breaking News Dashboard
+  </div>
+  <div class="owner-panel">
+    <button onclick="showOwnerActions()">Owner Panel</button>
+  </div>
+  <div class="owner-actions">
+    <button onclick="showPostNewsPrompt()">Post Breaking News</button>
+    <button onclick="showUsersList()">Manage Users</button>
+    <!-- Additional owner-only functionalities -->
+  </div>
+  <div class="main-content">
+    <p>Welcome to the Breaking News Dashboard</p>
+    <!-- Rest of your website content goes here -->
+  </div>
+
+  <!-- News Modal -->
+  <div id="news-modal" class="modal">
+    <div class="modal-content">
+      <input id="news-input" type="text" placeholder="Add Text">
+      <input id="image-input" type="file" accept="image/*">
+      <button onclick="postNews()">Post</button>
+      <span class="close" onclick="closeModal()">&times;</span>
+    </div>
+  </div>
+
+  <!-- Users Modal -->
+  <div id="users-modal" class="modal">
+    <div class="modal-content">
+      <!-- Display list of users with buttons to ban/add admin -->
+      <!-- Use JavaScript to populate the list -->
+      <span class="close" onclick="closeModal()">&times;</span>
+    </div>
+  </div>
+
+  <script>
+    let isAdminAction = false;
+
+    window.onload = function() {
+      const userEmail = "ns47190"; // Replace with actual user email
+      const ownerPanel = document.querySelector(".owner-panel");
+
+      if (userEmail === "ns47190") {
+        ownerPanel.style.display = "block";
+      }
+    }
+
+    function showOwnerActions() {
+      const actions = document.querySelector(".owner-actions");
+      actions.style.display = "block";
+    }
+
+    function showPostNewsPrompt() {
+      const newsModal = document.getElementById("news-modal");
+      newsModal.style.display = "block";
+    }
+
+    function showUsersList() {
+      const usersModal = document.getElementById("users-modal");
+      usersModal.style.display = "block";
+      // Fetch list of users from the server and populate the users-modal
+      // Replace this comment with actual fetch logic
+    }
+
+    function closeModal() {
+      const modals = document.querySelectorAll(".modal");
+      modals.forEach(modal => modal.style.display = "none");
+    }
+
+    function toggleAdminAction() {
+      const adminButton = document.getElementById("admin-button");
+      isAdminAction = !isAdminAction;
+
+      if (isAdminAction) {
+        adminButton.innerHTML = "Are You Sure?";
+      } else {
+        adminButton.innerHTML = "Add User as Admin";
+      }
+    }
+
+    function confirmAdminAction() {
+      if (isAdminAction) {
+        // Add logic here to perform admin action
+        alert("User added as admin!"); // Replace with actual logic
+      } else {
+        // Add logic here to confirm user action
+        alert("Are you sure?"); // Replace with actual confirmation logic
+      }
+    }
+
+    function postNews() {
+      const newsInput = document.getElementById("news-input").value;
+      const imageInput = document.getElementById("image-input").files[0]; // Handle file upload
+      // Send news content and image to the server
+      // Update the main part of the website to display the news
+      closeModal();
+    }
+
+    // Other functions for managing users (ban/add admin) go here
+
+  </script>
+</body>
+</html>
