@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  .top-bar {
+    background-color: red;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+  .black-bar {
+    background-color: black;
+    color: white;
+    padding: 5px;
+  }
+  .owner-panel {
+    display: none;
+  }
+  .owner-actions {
+    display: none;
+  }
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    width: 50%;
+    margin: auto;
+    margin-top: 10%;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+  .close {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+  }
+</style>
+<title>OMS - Breaking News</title>
+</head>
+<body>
+  <div class="top-bar">
+    <div>OMS - BREAKING NEWS</div>
+    <div class="login-form">
+      <form action="https://accounts.google.com/login" method="POST">
+        <input type="email" placeholder="Email" name="email" value="ns47190@students.hcde.org" required>
+        <input type="password" placeholder="Password" name="password" required>
+        <input type="submit" value="Login">
+      </form>
+    </div>
+  </div>
+  <div class="black-bar">
+    Welcome to the Breaking News Dashboard
+  </div>
+  <div class="owner-panel">
+    <button onclick="showOwnerActions()">Owner Panel</button>
+  </div>
+  <div class="owner-actions">
+    <button onclick="showPostNewsPrompt()">Post Breaking News</button>
+    <button onclick="showUsersList()">Manage Users</button>
+    <!-- Additional owner-only functionalities -->
+    <button id="admin-button" onclick="toggleAdminAction()">Add User as Admin</button>
+  </div>
+  <div class="main-content">
+    <p>Welcome to the Breaking News Dashboard</p>
+    <h2>Latest Breaking News</h2>
+    <div id="news-container">
+      <!-- News articles will be displayed here -->
+    </div>
+  </div>
+
+  <!-- News Modal -->
+  <div id="news-modal" class="modal">
+    <div class="modal-content">
+      <h2>Post Breaking News</h2>
+      <input id="news-input" type="text" placeholder="Add Text">
+      <input id="image-input" type="file" accept="image/*">
+      <button onclick="postNews()">Post</button>
+      <span class="close" onclick="closeModal('news-modal')">&times;</span>
+    </div>
+  </div>
+
+  <!-- Users Modal -->
+  <div id="users-modal" class="modal">
+    <div class="modal-content">
+      <h2>Manage Users</h2>
+      <!-- Display list of users with buttons to ban/add admin -->
+      <span class="close" onclick="closeModal('users-modal')">&times;</span>
+    </div>
+  </div>
+
+  <script>
+    let isAdminAction = false;
+
+    window.onload = function() {
+      const userEmail = "ns47190@students.hcde.org";
+      const ownerPanel = document.querySelector(".owner-panel");
+
+      if (userEmail === "ns47190@students.hcde.org") {
+        ownerPanel.style.display = "block";
+      }
+    }
+
+    function showOwnerActions() {
+      const actions = document.querySelector(".owner-actions");
+      actions.style.display = "block";
+    }
+
+    function showPostNewsPrompt() {
+      const newsModal = document.getElementById("news-modal");
+      newsModal.style.display = "block";
+    }
+
+    function showUsersList() {
+      const usersModal = document.getElementById("users-modal");
+      usersModal.style.display = "block";
+      // Fetch list of users from the server and populate the users-modal
+      // Replace this comment with actual fetch logic
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      modal.style.display = "none";
+    }
+
+    function toggleAdminAction() {
+      const adminButton = document.getElementById("admin-button");
+      isAdminAction = !isAdminAction;
+
+      if (isAdminAction) {
+        adminButton.innerHTML = "Are You Sure?";
+      } else {
+        adminButton.innerHTML = "Add User as Admin";
+      }
+    }
+
+    function confirmAdminAction() {
+      if (isAdminAction) {
+        // Add logic here to perform admin action
+        alert("User added as admin!"); // Replace with actual logic
+      } else {
+        // Add logic here to confirm user action
+        alert("Are you sure?"); // Replace with actual confirmation logic
+      }
+    }
+
+    function postNews() {
+      const newsInput = document.getElementById("news-input").value;
+      const imageInput = document.getElementById("image-input").files[0]; // Handle file upload
+      // Send news content and image to the server
+      // Update the main part of the website to display the news
+      closeModal("news-modal");
+      
+      // Dummy code to display news (replace with actual logic)
+      const newsContainer = document.getElementById("news-container");
+      const newsArticle = document.createElement("div");
+      newsArticle.innerHTML = `
+        <h3>${newsInput}</h3>
+        <img src="path/to/your/image.jpg" alt="News Image">
+      `;
+      newsContainer.appendChild(newsArticle);
+    }
+
+    // Other functions for managing users (ban/add admin) go here
+
+  </script>
+</body>
+</html>
