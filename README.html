@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  .top-bar {
+    background-color: red;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+  .black-bar {
+    background-color: black;
+    color: white;
+    padding: 5px;
+  }
+  /* Additional CSS styles here */
+</style>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans|Lobster" rel="stylesheet">
+<title>OMS - Breaking News</title>
+<!-- Include the Google API script -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+</head>
+<body>
+  <div class="top-bar">
+    <div style="font-family: 'Lobster', cursive; font-size: 24px;">OMS - BREAKING NEWS</div>
+    <div class="login-form">
+      <input type="text" id="username" placeholder="Username">
+      <input type="password" id="password" placeholder="Password">
+      <button onclick="login()">Login</button>
+      <!-- Google Sign-In button -->
+      <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    </div>
+  </div>
+  <div class="black-bar">
+    Welcome to the Breaking News Dashboard
+  </div>
+  <div class="owner-panel" id="owner-panel">
+    <button onclick="showOwnerActions()">Owner Panel</button>
+  </div>
+  <div class="owner-actions">
+    <button onclick="showPostNewsPrompt()">Post Breaking News</button>
+    <button onclick="showUsersList()">Manage Users</button>
+    <button id="admin-button" onclick="toggleAdminAction()">Add User as Admin</button>
+  </div>
+  <div class="main-content">
+    <p>Welcome to the Breaking News Dashboard</p>
+    <h2>Latest Breaking News</h2>
+    <div id="news-container">
+      <!-- News articles will be displayed here -->
+    </div>
+  </div>
+
+  <!-- News Modal -->
+  <div id="news-modal" class="modal">
+    <div class="modal-content">
+      <h2>Post Breaking News</h2>
+      <input id="news-input" type="text" placeholder="Add Text">
+      <input id="image-input" type="file" accept="image/*">
+      <button onclick="postNews()">Post</button>
+      <span class="close" onclick="closeModal('news-modal')">&times;</span>
+    </div>
+  </div>
+
+  <!-- Users Modal -->
+  <div id="users-modal" class="modal">
+    <div class="modal-content">
+      <h2>Manage Users</h2>
+      <!-- Display list of users with buttons to ban/add admin -->
+      <span class="close" onclick="closeModal('users-modal')">&times;</span>
+    </div>
+  </div>
+
+  <script>
+    let isAdminAction = false;
+
+    function updateOwnerPanelDisplay(userEmail) {
+      const ownerPanel = document.querySelector("#owner-panel");
+      
+      if (userEmail === "ns47190@students.hcde.org") {
+        ownerPanel.style.display = "block";
+      } else {
+        ownerPanel.style.display = "none";
+      }
+    }
+
+    // Google Sign-In callback
+    function onSignIn(googleUser) {
+      const userEmail = googleUser.getBasicProfile().getEmail();
+      updateOwnerPanelDisplay(userEmail);
+    }
+
+    function login() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      if (username === 'ns' && password === '09202010') {
+        updateOwnerPanelDisplay("ns47190@students.hcde.org");
+      } else {
+        alert('Invalid credentials');
+      }
+    }
+
+    function showOwnerActions() {
+      // Logic to show owner actions
+    }
+
+    function showPostNewsPrompt() {
+      // Logic to show post news prompt
+    }
+
+    function showUsersList() {
+      // Logic to show users list
+    }
+
+    function toggleAdminAction() {
+      isAdminAction = !isAdminAction;
+      const adminButton = document.getElementById('admin-button');
+      adminButton.innerText = isAdminAction ? 'Cancel' : 'Add User as Admin';
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      modal.style.display = "none";
+    }
+
+    function postNews() {
+      const newsText = document.getElementById('news-input').value;
+      // Logic to post news
+    }
+
+    // Rest of your JavaScript functions...
+  </script>
+</body>
+</html>
